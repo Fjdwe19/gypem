@@ -15,7 +15,7 @@
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>EXAMS</h4>
+                    <h4>UJIAN</h4>
                   </div>
                   <div class="card-body">
                     {{ App\Models\Exam::count() ?? '0' }}
@@ -30,7 +30,7 @@
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>QUESTIONS</h4>
+                    <h4>SOAL</h4>
                   </div>
                   <div class="card-body">
                     {{ App\Models\Question::count() ?? '0' }}
@@ -79,7 +79,7 @@
               </div>
               <div class="card-wrap">
                 <div class="card-header">
-                  <h4>MY EXAMS</h4>
+                  <h4>UJIAN SAYA</h4>
                 </div>
                 <div class="card-body">
                   {{ $exams->count() ?? '0' }}

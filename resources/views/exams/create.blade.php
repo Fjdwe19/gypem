@@ -4,14 +4,14 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Tambah Exam</h1>
+            <h1>Tambah Ujian</h1>
         </div>
 
         <div class="section-body">
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-exam"></i> Tambah Exam</h4>
+                    <h4><i class="fas fa-exam"></i> Tambah Ujian</h4>
                 </div>
 
                 <div class="card-body">
@@ -19,7 +19,7 @@
                         @csrf
 
                         <div class="form-group">
-                            <label>NAME</label>
+                            <label>NAMA</label>
                             <input type="text" name="name" value="{{ old('name') }}" class="form-control" >
                             @error('name')
                             <div class="invalid-feedback" style="display: block">
@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>TIME (MINUTE)</label>
+                            <label>WAKTU (MENIT)</label>
                             <input type="number" name="time" value="{{ old('time') }}" class="form-control" >
 
                             @error('time')
@@ -40,8 +40,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>TOTAL QUESTION</label>
-                            <input type="number" name="total_question" value="{{ old('total_question') }}" class="form-control" >
+                            <label>JUMLAH SOAL</label> <input type="number" name="total_question" value="{{ old('total_question') }}" class="form-control" >
 
                             @error('total_question')
                             <div class="invalid-feedback" style="display: block">
@@ -51,7 +50,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>START</label>
+                            <label>MULAI</label>
                             <input type="datetime-local" name="start" value="<?= date('Y-m-d', time()); ?>" class="form-control @error('start') is-invalid @enderror">
 
                             @error('start')
@@ -62,7 +61,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>END</label>
+                            <label>BERAKHIR</label>
                             <input type="datetime-local" name="end" value="<?= date('Y-m-d', time()); ?>" class="form-control @error('end') is-invalid @enderror">
 
                             @error('end')

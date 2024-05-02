@@ -4,14 +4,14 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Edit Question</h1>
+            <h1>Edit Soal</h1>
         </div>
 
         <div class="section-body">
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-question"></i> Edit Question</h4>
+                    <h4><i class="fas fa-question"></i> Edit Soal</h4>
                 </div>
 
                 <div class="card-body">
@@ -19,9 +19,9 @@
                         @method('PUT')
                         @csrf
                         <div class="form-group">
-                            <label>SUBJECT</label>
+                            <label>JENIS SOAL</label>
                             <select class="form-control select-subject @error('subject_id') is-invalid @enderror" name="subject_id">
-                                <option value="">- SELECT SUBJECT -</option>
+                                <option value="">- PILIH -</option>
                                 @foreach ($subjects as $subject)
                                     @if ($question->subject_id == $subject->id )
                                     <option value="{{ $subject->id }}" selected>{{ $subject->name }}</option>
@@ -42,7 +42,7 @@
                                 <div class="form-group">
                                     <label>VIDEO</label>
                                     <select class="form-control select-video @error('video_id') is-invalid @enderror" name="video_id">
-                                        <option value="">- SELECT VIDEO -</option>
+                                        <option value="">- PILIH VIDEO -</option>
                                         @foreach ($videos as $video)
                                             @if ($question->video_id == $video->id)
                                                 <option value="{{ $video->id }}" selected>{{ $video->title }}</option>
@@ -63,7 +63,7 @@
                                 <div class="form-group">
                                     <label>AUDIO</label>
                                     <select class="form-control select-audio @error('audio_id') is-invalid @enderror" name="audio_id">
-                                        <option value="">- SELECT AUDIO -</option>
+                                        <option value="">- PILIH AUDIO -</option>
                                         @foreach ($audios as $audio)
                                             @if ($question->audio_id == $audio->id)
                                                 <option value="{{ $audio->id }}" selected>{{ $audio->title }}</option>
@@ -82,9 +82,9 @@
 
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label>IMAGE</label>
+                                    <label>GAMBAR</label>
                                     <select class="form-control select-image @error('image_id') is-invalid @enderror" name="image_id">
-                                        <option value="">- SELECT IMAGE -</option>
+                                        <option value="">- PILIH GAMBAR -</option>
                                         @foreach ($images as $image)
                                             @if ($question->image_id == $image->id)
                                                 <option value="{{ $image->id }}" selected>{{ $image->title }}</option>
@@ -134,7 +134,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>OPTION A</label>
+                            <label> A</label>
                             <input type="text" name="option_A" value="{{ old('option_A', $question->option_A) }}" class="form-control" >
 
                             @error('option_A')
@@ -145,7 +145,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>OPTION B</label>
+                            <label> B</label>
                             <input type="text" name="option_B" value="{{ old('option_B', $question->option_B) }}" class="form-control" >
 
                             @error('option_B')
@@ -156,7 +156,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>OPTION C</label>
+                            <label> C</label>
                             <input type="text" name="option_C" value="{{ old('option_C', $question->option_C) }}" class="form-control" >
 
                             @error('option_C')
@@ -167,7 +167,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>OPTION D</label>
+                            <label> D</label>
                             <input type="text" name="option_D" value="{{ old('option_D', $question->option_D) }}" class="form-control" >
 
                             @error('option_D')
@@ -178,7 +178,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>OPTION E</label>
+                            <label>E</label>
                             <input type="text" name="option_E" value="{{ old('option_E', $question->option_E) }}" class="form-control" >
 
                             @error('option_E')
@@ -189,7 +189,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>ANSWER</label>
+                            <label>JAWABAN</label>
                             <input type="text" name="answer" value="{{ old('answer', $question->answer) }}" class="form-control" >
 
                             @error('answer')
@@ -200,7 +200,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>EXPLANATION</label>
+                            <label>PENJELASAN</label>
                             <textarea name="explanation" cols="30" rows="30" class="form-control">{{ old('explanation', $question->explanation) }}</textarea>
                             @error('explanation')
                             <div class="invalid-feedback" style="display: block">

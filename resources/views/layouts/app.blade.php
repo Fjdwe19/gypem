@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Dashboard &mdash; UJIAN</title>
+    <title>Dashboard &mdash; GYPEM</title>
     <link rel="shortcut icon" href="{{ asset('assets/img/gear.svg') }}" type="image/x-icon">
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap/css/bootstrap.min.css') }}">
@@ -60,7 +60,7 @@
             <div class="main-sidebar sidebar-style-2">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
-                        <a href="index.html">UJIAN APP</a>
+                        <a href="index.html">GYPEM APP</a>
                     </div>
                     <div class="sidebar-brand sidebar-brand-sm">
                         <a href="index.html">UJIAN</a>
@@ -73,19 +73,19 @@
                         @can('exams.index')
                         <li class="{{ setActive('/exam') }}"><a class="nav-link"
                                 href="{{  route('exams.index') }}"><i class="fas fa-book-open"></i>
-                                <span>Exams</span></a></li>
+                                <span>Ujian</span></a></li>
                         @endcan
 
                         @can('questions.index')
                         <li class="{{ setActive('/question') }}"><a class="nav-link"
-                                href="{{ route('questions.index') }}"><i class="fas fa-question"></i> <span>Questions</span></a>
+                                href="{{ route('questions.index') }}"><i class="fas fa-question"></i> <span>Soal</span></a>
                         </li>
                         @endcan
 
                         @can('subjects.index')
                         <li class="{{ setActive('/subject') }}"><a class="nav-link"
                                 href="{{ route('subjects.index') }}"><i class="fas fa-atlas"></i>
-                                <span>Subject</span></a></li>
+                                <span>Jenis Soal</span></a></li>
                         @endcan
 
                         @can('events.index')
@@ -101,7 +101,7 @@
                         @can('images.index')
                         <li class="{{ setActive('/image') }}"><a class="nav-link"
                                 href="{{ route('images.index') }}"><i class="fas fa-image"></i>
-                                <span>Image</span></a></li>
+                                <span>Gambar</span></a></li>
                         @endcan
 
                         @can('videos.index')
@@ -135,8 +135,7 @@
                         <li
                             class="dropdown {{ setActive('admin/role'). setActive('admin/permission'). setActive('admin/user') }}">
                             @if(auth()->user()->can('roles.index') || auth()->user()->can('permission.index') || auth()->user()->can('users.index'))
-                                <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Users
-                                Management</span></a>
+                                <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Pengaturan Tambahan</span></a>
                             @endif
                             
                             <ul class="dropdown-menu">
@@ -167,10 +166,6 @@
             @yield('content')
 
             <footer class="main-footer">
-                <div class="footer-left">
-                    Copyright &copy; 2021 <div class="bullet"></div> UJIAN APP <div class="bullet"></div> All Rights
-                    Reserved.
-                </div>
                 <div class="footer-right">
 
                 </div>

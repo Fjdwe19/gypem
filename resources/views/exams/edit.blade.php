@@ -4,14 +4,14 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Edit Exam</h1>
+            <h1>Edit Ujian</h1>
         </div>
 
         <div class="section-body">
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-exam"></i> Edit Exam</h4>
+                    <h4><i class="fas fa-exam"></i> Edit Ujian</h4>
                 </div>
 
                 <div class="card-body">
@@ -19,7 +19,7 @@
                         @csrf
                         @method('PUT')
                         <div class="form-group">
-                            <label>NAME</label>
+                            <label>NAMA</label>
                             <input type="text" name="name" value="{{ old('name', $exam->name) }}" class="form-control" >
                             @error('name')
                             <div class="invalid-feedback" style="display: block">
@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>TIME (MINUTE)</label>
+                            <label>WAKTU (MENIT)</label>
                             <input type="number" name="time" value="{{ old('time', $exam->time) }}" class="form-control" >
 
                             @error('time')
@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>TOTAL QUESTION</label>
+                            <label>JUMLAH SOAL</label>
                             <input type="number" name="total_question" value="{{ old('total_question', $exam->total_question) }}" class="form-control" >
 
                             @error('total_question')
@@ -51,7 +51,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>START</label>
+                            <label>MULAI</label>
                             <input type="datetime-local" name="start" value="<?php echo date('Y-m-d\TH:i:s', strtotime($exam->start)); ?>" class="form-control @error('start') is-invalid @enderror">
 
                             @error('start')
@@ -62,7 +62,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>END</label>
+                            <label>BERAKHIR</label>
                             <input type="datetime-local" name="end" value="<?php echo date('Y-m-d\TH:i:s', strtotime($exam->end)); ?>" class="form-control @error('end') is-invalid @enderror">
 
                             @error('end')

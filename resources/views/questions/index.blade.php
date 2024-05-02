@@ -4,14 +4,14 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Questions</h1>
+            <h1>SOAL</h1>
         </div>
 
         <div class="section-body">
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-question"></i> Questions</h4>
+                    <h4><i class="fas fa-question"></i> SOAL</h4>
                 </div>
 
                 <div class="card-body">
@@ -37,18 +37,18 @@
                             <thead>
                             <tr>
                                 <th scope="col" style="text-align: center;width: 6%">NO.</th>
-                                <th scope="col">SUBJECT</th>
+                                <th scope="col">JENIS SOAL</th>
                                 <th scope="col">DETAIL</th>
-                                <th scope="col">ATTACHMENT</th>
-                                <th scope="col">OPTION A</th>
-                                <th scope="col">OPTION B</th>
-                                <th scope="col">OPTION C</th>
-                                <th scope="col">OPTION D</th>
-                                <th scope="col">OPTION E</th>
-                                <th scope="col">ANSWER</th>
-                                <th scope="col">EXPLANATION</th>
-                                <th scope="col">CREATED BY</th>
-                                <th scope="col" style="width: 15%;text-align: center">AKSI</th>
+                                <th scope="col">LAMPIRAN</th>
+                                <th scope="col">A</th>
+                                <th scope="col">B</th>
+                                <th scope="col">C</th>
+                                <th scope="col">D</th>
+                                <th scope="col">E</th>
+                                <th scope="col">JAWAB</th>
+                                <th scope="col">PENJELASAN</th>
+                                <th scope="col">PEMBUAT</th>
+                                <th scope="col" style="width: 15%;text-align: center; ">AKSI</th>
                             </tr>
                             </thead>
                             <tbody>

@@ -4,14 +4,14 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Exams</h1>
+            <h1>UJIAN</h1>
         </div>
 
         <div class="section-body">
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-exam"></i> Exams</h4>
+                    <h4><i class="fas fa-exam"></i> UJIAN </h4>
                 </div>
 
                 <div class="card-body">
@@ -39,17 +39,17 @@
                             <thead>
                             <tr>
                                 <th scope="col" style="text-align: center;width: 6%">NO.</th>
-                                <th scope="col">NAME</th>
-                                <th scope="col">TIME</th>
-                                <th scope="col">TOTAL QUESTION</th>
+                                <th scope="col">NAMA</th>
+                                <th scope="col">WAKTU</th>
+                                <th scope="col">JUMLAH SOAL</th>
                                 @hasanyrole('teacher|admin')
-                                <th scope="col">ASSIGN STUDENT</th>
+                                <th scope="col">SISWA YANG MENGERJAKAN</th>
                                 @endhasanyrole
                                 @hasrole('student')
-                                <th scope="col">SCORE</th>
+                                <th scope="col">STATUS</th>
                                 @endhasrole
-                                <th scope="col">START</th>
-                                <th scope="col">END</th>
+                                <th scope="col">MULAI</th>
+                                <th scope="col">BERAKHIR</th>
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
                             </tr>
                             </thead>
