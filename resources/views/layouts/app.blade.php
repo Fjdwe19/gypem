@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Dashboard &mdash; GYPEM</title>
+    <title>Dashboard &mdash; Gypem</title>
     <link rel="shortcut icon" href="{{ asset('assets/img/gear.svg') }}" type="image/x-icon">
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap/css/bootstrap.min.css') }}">
@@ -85,7 +85,7 @@
                         @can('subjects.index')
                         <li class="{{ setActive('/subject') }}"><a class="nav-link"
                                 href="{{ route('subjects.index') }}"><i class="fas fa-atlas"></i>
-                                <span>Jenis Soal</span></a></li>
+                                <span>Modul</span></a></li>
                         @endcan
 
                         @can('events.index')
@@ -95,7 +95,7 @@
                         @endcan
 
                         @if(auth()->user()->can('images.index') || auth()->user()->can('videos.index') || auth()->user()->can('audios.index') || auth()->user()->can('documents.index'))
-                        <li class="menu-header">GALERI</li>
+                        <li class="menu-header">Pembuatan Soal</li>
                         @endif
                         
                         @can('images.index')
@@ -164,12 +164,6 @@
 
             <!-- Main Content -->
             @yield('content')
-
-            <footer class="main-footer">
-                <div class="footer-right">
-
-                </div>
-            </footer>
         </div>
     </div>
 

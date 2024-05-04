@@ -14,26 +14,29 @@ use Illuminate\Http\Request;
 class QuestionController extends Controller
 {
      /**
-     * __construct
+     * Membuat instance controller baru.
      *
      * @return void
      */
     public function __construct()
     {
+        // Menerapkan middleware untuk izin akses pada indeks, membuat, mengedit, dan menghapus pertanyaan
         $this->middleware(['permission:questions.index|questions.create|questions.edit|questions.delete']);
     }
 
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar pertanyaan.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
+        // Mengambil daftar pertanyaan terbaru, jika ada pencarian, melakukan filter berdasarkan detail pertanyaan
         $questions = Question::latest()->when(request()->q, function($questions) {
             $questions = $questions->where('detail', 'like', '%'. request()->q . '%');
         })->paginate(10);
 
+        // Membuat instance objek subjek, video, audio, gambar, dokumen, dan pengguna
         $subject = new Subject();
         $video = new Video();
         $audio = new Audio();
@@ -41,32 +44,37 @@ class QuestionController extends Controller
         $image = new Image();
         $user = new User();
 
+        // Mengirimkan data pertanyaan dan objek terkait ke tampilan indeks pertanyaan
         return view('questions.index', compact('questions', 'subject', 'video', 'audio', 'document', 'image', 'user'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Menampilkan formulir untuk membuat pertanyaan baru.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
+        // Mengambil daftar subjek, video, audio, gambar, dan dokumen terbaru
         $subjects = Subject::latest()->get();
         $videos = Video::latest()->get();
         $audios = Audio::latest()->get();
         $images = Image::latest()->get();
         $documents = Document::latest()->get();
+        
+        // Mengirimkan data ke tampilan membuat pertanyaan
         return view('questions.create', compact('subjects', 'videos', 'audios', 'images', 'documents'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menyimpan pertanyaan baru ke penyimpanan.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        // Validasi input
         $this->validate($request, [
             'subject_id'  => 'required',
             'detail'      => 'required',
@@ -78,6 +86,7 @@ class QuestionController extends Controller
             'explanation' => 'required'
         ]);
 
+        // Simpan informasi pertanyaan ke database
         $question = Question::create([
             'subject_id'    => $request->input('subject_id'),
             'detail'        => $request->input('detail'),
@@ -95,41 +104,43 @@ class QuestionController extends Controller
             'created_by'    => Auth()->id()
         ]);
 
-
+        // Redirect dengan pesan sukses atau error
         if($question){
-            //redirect dengan pesan sukses
             return redirect()->route('questions.index')->with(['success' => 'Data Berhasil Disimpan!']);
         }else{
-            //redirect dengan pesan error
             return redirect()->route('questions.index')->with(['error' => 'Data Gagal Disimpan!']);
         }
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Menampilkan formulir untuk mengedit pertanyaan tertentu.
      *
-     * @param  int  $id
+     * @param  Question  $question
      * @return \Illuminate\Http\Response
      */
     public function edit(Question $question)
     {
+        // Mengambil daftar subjek, video, audio, gambar, dan dokumen terbaru
         $subjects = Subject::latest()->get();
         $videos = Video::latest()->get();
         $audios = Audio::latest()->get();
         $images = Image::latest()->get();
         $documents = Document::latest()->get();
+        
+        // Mengirimkan data ke tampilan mengedit pertanyaan
         return view('questions.edit', compact('question', 'subjects', 'videos', 'audios', 'images', 'documents'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Memperbarui informasi pertanyaan tertentu di penyimpanan.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Question  $question
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Question $question)
     {
+        // Validasi input
         $this->validate($request, [
             'subject_id'  => 'required',
             'detail'      => 'required',
@@ -141,6 +152,7 @@ class QuestionController extends Controller
             'explanation' => 'required'
         ]);
 
+        // Temukan dan perbarui informasi pertanyaan berdasarkan ID
         $question = Question::findOrFail($question->id);
 
         $question->update([
@@ -159,6 +171,7 @@ class QuestionController extends Controller
             'explanation'   => $request->input('explanation'),
             'created_by'    => Auth()->id()
         ]);
+
 
         if($question){
             //redirect dengan pesan sukses

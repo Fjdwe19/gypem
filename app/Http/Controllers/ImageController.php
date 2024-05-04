@@ -9,74 +9,80 @@ use Illuminate\Support\Facades\Storage;
 class ImageController extends Controller
 {
     /**
-     * __construct
+     * Membuat instance controller baru.
      *
      * @return void
      */
     public function __construct()
     {
+        // Menerapkan middleware untuk izin akses pada indeks, membuat, dan menghapus gambar
         $this->middleware(['permission:images.index|images.create|images.delete']);
     }
 
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar gambar.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
+        // Mengambil daftar gambar terbaru, jika ada pencarian, melakukan filter berdasarkan judul
         $images = Image::latest()->when(request()->q, function($images) {
             $images = $images->where('title', 'like', '%'. request()->q . '%');
         })->paginate(10);
 
+        // Mengirimkan data gambar ke tampilan indeks gambar
         return view('images.index', compact('images'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menyimpan gambar baru ke penyimpanan.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        // Validasi input
         $this->validate($request, [
             'title'     => 'required',
             'image'     => 'required|mimes:jpg,bmp,png',
             'caption'   => 'required'
         ]);
 
-        //upload image
+        // Unggah gambar
         $image = $request->file('image');
         $image->storeAs('public/images', $image->hashName());
 
+        // Simpan informasi gambar ke database
         $image = Image::create([
             'title'     => $request->input('title'),
             'link'     => $image->hashName(),
             'caption'   => $request->input('caption')
         ]);
 
+        // Redirect dengan pesan sukses atau error
         if($image){
-            //redirect dengan pesan sukses
             return redirect()->route('images.index')->with(['success' => 'Data Berhasil Disimpan!']);
         }else{
-            //redirect dengan pesan error
             return redirect()->route('images.index')->with(['error' => 'Data Gagal Disimpan!']);
         }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Menghapus gambar tertentu dari penyimpanan.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
+        // Temukan dan hapus gambar berdasarkan ID
         $image = Image::findOrFail($id);
         $link= Storage::disk('local')->delete('public/images/'.$image->link);
         $image->delete();
 
+        // Memberikan respons JSON untuk status penghapusan
         if($image){
             return response()->json([
                 'status' => 'success'

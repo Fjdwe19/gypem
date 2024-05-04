@@ -7,6 +7,10 @@
     <title>Login &mdash; Sekolah</title>
 
     <link rel="shortcut icon" href="{{ asset('assets/img/school.svg') }}" type="image/x-icon">
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap/css/bootstrap.min.css') }}">
@@ -17,93 +21,76 @@
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/stylelog.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
 </head>
 
-<body style="background: #e2e8f0">
-    <div id="app">
-        <section class="section">
-            <div class="container mt-5">
-                <div class="row">
-                    <div
-                        class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h4>Login</h4>
-                            </div>
-
-                            <div class="card-body">
-                                <form method="POST" action="{{ route('login') }}" class="needs-validation"
-                                    novalidate="">
-                                    @csrf
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input id="email" type="email"
-                                            class="form-control @error('email') is-invalid @enderror" name="email"
-                                            placeholder="Masukkan Alamat Email" value="{{ old('email') }}" tabindex="1"
-                                            required autofocus>
-                                        @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="d-block">
-                                            <label for="password"
-                                                class="control-label @error('password') is-invalid @enderror">Password</label>
-                                        </div>
-                                        <input id="password" type="password" class="form-control" name="password"
-                                            placeholder="Masukkan Password" tabindex="2" required>
-                                        @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" name="remember" class="custom-control-input"
-                                                tabindex="3" id="remember-me">
-                                            <label class="custom-control-label" for="remember-me">Remember Me</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                                            Login
-                                        </button>
-                                    </div>
-                                </form>
-
-                            </div>
-                        </div>
-
-                    </div>
+<body>
+      <div class="forms-container">
+        <div class="signin-signup">
+          <form method="POST" action="{{ route('login') }}" class="sign-in-form">
+            <h2 class="title">Sign in</h2>
+            @csrf
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input id="email" type="email"
+                        class="@error('email') is-invalid @enderror" name="email"
+                        placeholder="Masukkan Alamat Email" value="{{ old('email') }}" required autofocus>
+                    @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
+
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input id="password" type="password" name="password"
+                        placeholder="Masukkan Password" tabindex="2" required>
+                    @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                        Login
+                    </button>
+                </div>
+            <p class="social-text">Or Sign in with social platforms</p>
+            <div class="social-media">
+              <a href="#" class="social-icon">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="fab fa-google"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
             </div>
-        </section>
-    </div>
+          </form>
+        </div>
+      </div>
 
-    <!-- General JS Scripts -->
-    <script src="{{ asset('assets/modules/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/modules/popper.js') }}"></script>
-    <script src="{{ asset('assets/modules/tooltip.js') }}"></script>
-    <script src="{{ asset('assets/modules/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
-    <script src="{{ asset('assets/modules/moment.min.js') }}"></script>
-    <script src="{{ asset('assets/js/stisla.js') }}"></script>
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <div class="content">
+            <h3>GYPEM OLYMPIADE</h3>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
+              ex ratione. Aliquid!
+            </p>
+          </div>
+          <img src="{{asset('assets/log.svg')}}" class="image" alt="" />
+        </div>
+      </div>
 
-    <!-- JS Libraies -->
-
-    <!-- Page Specific JS File -->
-
-    <!-- Template JS File -->
-    <script src="{{ asset('assets/js/scripts.js') }}"></script>
-    <script src="{{ asset('assets/js/custom.js') }}"></script>
-</body>
+    <script src="applog.js"></script>
+  </body>
 
 </html>
