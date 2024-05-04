@@ -1,24 +1,26 @@
 {
-    "private": true,
-    "scripts": {
-        "dev": "npm run development",
-        "development": "mix",
-        "watch": "mix watch",
-        "watch-poll": "mix watch -- --watch-options-poll=1000",
-        "hot": "mix watch --hot",
-        "prod": "npm run production",
-        "production": "mix --production"
+    "private": true, // Menandakan bahwa proyek ini merupakan proyek privat dan tidak akan dipublikasikan ke registry npm publik.
+
+    "scripts": { // Mendefinisikan skrip-skrip yang dapat dijalankan dengan menggunakan npm.
+        "dev": "npm run development", // Menjalankan skrip "development".
+        "development": "mix", // Menggunakan Laravel Mix untuk kompilasi asset dalam mode pengembangan.
+        "watch": "mix watch", // Memantau perubahan pada asset dan mengkompilasi ulang secara otomatis saat terjadi perubahan.
+        "watch-poll": "mix watch -- --watch-options-poll=1000", // Sama seperti "watch", tetapi menggunakan polling setiap 1000 ms untuk mendeteksi perubahan.
+        "hot": "mix watch --hot", // Menjalankan mode hot-reloading menggunakan Laravel Mix.
+        "prod": "npm run production", // Menjalankan skrip "production".
+        "production": "mix --production" // Menggunakan Laravel Mix untuk mengkompilasi asset dalam mode produksi.
     },
-    "devDependencies": {
-        "axios": "^0.21",
-        "bootstrap": "^4.6.0",
-        "jquery": "^3.6",
-        "laravel-mix": "^6.0.6",
-        "lodash": "^4.17.19",
-        "popper.js": "^1.16.1",
-        "postcss": "^8.1.14",
-        "resolve-url-loader": "^3.1.2",
-        "sass": "^1.32.11",
-        "sass-loader": "^11.0.1"
+
+    "devDependencies": { // Daftar dependensi yang diperlukan hanya pada saat pengembangan.
+        "axios": "^0.21", // HTTP client untuk JavaScript, umumnya digunakan untuk berkomunikasi dengan API dari frontend.
+        "bootstrap": "^4.6.0", // Framework front-end untuk mengembangkan aplikasi web responsif dan mobile-first.
+        "jquery": "^3.6", // Library JavaScript yang memudahkan untuk memanipulasi DOM dan berinteraksi dengan server.
+        "laravel-mix": "^6.0.6", // Pustaka yang digunakan untuk mengelola asset dalam proyek Laravel.
+        "lodash": "^4.17.19", // Koleksi utilitas JavaScript yang menyediakan fungsi-fungsi bantuan untuk mempermudah pengembangan.
+        "popper.js": "^1.16.1", // Library JavaScript yang digunakan untuk menangani posisi popup (popover) dan tooltip.
+        "postcss": "^8.1.14", // Tool untuk memproses CSS dengan JavaScript, biasanya digunakan untuk otomatisasi proses dalam pengembangan web.
+        "resolve-url-loader": "^3.1.2", // Loader webpack untuk menangani penyelesaian URL dalam file SASS atau CSS.
+        "sass": "^1.32.11", // Bahasa stylesheet yang menghasilkan CSS yang lebih baik dan lebih mudah dipahami daripada CSS biasa.
+        "sass-loader": "^11.0.1" // Loader webpack untuk mengompilasi file SASS menjadi CSS.
     }
 }
