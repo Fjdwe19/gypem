@@ -49,5 +49,7 @@ $status = $kernel->handle(
 */
 
 $kernel->terminate($input, $status);
+//Ini adalah panggilan untuk metode terminate() pada objek kernel aplikasi. Metode ini digunakan untuk menyelesaikan request HTTP saat aplikasi Laravel sudah selesai menjalankan kode untuk request tersebut. Variabel $input adalah input dari request dan $status adalah status akhir dari request.
 
 exit($status);
+//Ini adalah perintah untuk keluar dari proses PHP saat ini dengan mengembalikan nilai $status. Ketika metode terminate() dipanggil, biasanya aplikasi Laravel ingin menyelesaikan proses dengan status yang sesuai. Jadi, perintah exit($status) digunakan untuk mengakhiri proses PHP dan mengembalikan status yang sesuai ke lingkungan di mana aplikasi berjalan.

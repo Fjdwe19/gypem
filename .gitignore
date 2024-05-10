@@ -1,6 +1,9 @@
+# Direktori yang biasanya tidak perlu disertakan dalam kontrol versi
 /node_modules
 /public/hot
 /public/storage
+
+# File dan direktori spesifik yang mungkin berisi informasi sensitif atau tidak perlu disertakan dalam kontrol versi
 /storage/*.key
 /vendor
 .env
@@ -9,5 +12,7 @@
 docker-compose.override.yml
 Homestead.json
 Homestead.yaml
+
+# File log yang biasanya tidak perlu disertakan dalam kontrol versi
 npm-debug.log
 yarn-error.log

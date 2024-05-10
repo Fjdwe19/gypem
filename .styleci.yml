@@ -1,13 +1,18 @@
+# Konfigurasi untuk PHP
 php:
-  preset: laravel
-  disabled:
-    - no_unused_imports
-  finder:
-    not-name:
-      - index.php
-      - server.php
+  preset: laravel # Mengatur aturan standar untuk Laravel
+  disabled: # Daftar aturan yang dinonaktifkan
+    - no_unused_imports # Aturan untuk memeriksa impor yang tidak digunakan dinonaktifkan
+  finder: # Konfigurasi untuk menemukan file yang akan diperiksa
+    not-name: # Menyatakan file yang tidak akan diperiksa
+      - index.php # File dengan nama 'index.php' akan dikecualikan dari pemeriksaan
+      - server.php # File dengan nama 'server.php' juga akan dikecualikan dari pemeriksaan
+
+# Konfigurasi untuk JavaScript
 js:
-  finder:
-    not-name:
-      - webpack.mix.js
-css: true
+  finder: # Konfigurasi untuk menemukan file yang akan diperiksa
+    not-name: # Menyatakan file yang tidak akan diperiksa
+      - webpack.mix.js # File dengan nama 'webpack.mix.js' akan dikecualikan dari pemeriksaan
+
+# Konfigurasi untuk CSS
+css: true # Menggunakan aturan standar untuk CSS
