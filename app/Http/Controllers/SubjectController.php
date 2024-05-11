@@ -14,6 +14,7 @@ class SubjectController extends Controller
      */
     public function __construct()
     {
+        // Menentukan middleware yang diperlukan untuk mengakses fungsi-fungsi pada kontroler ini
         $this->middleware(['permission:subjects.index|subjects.create|subjects.delete']);
     }
 
@@ -24,10 +25,12 @@ class SubjectController extends Controller
      */
     public function index()
     {
+        // Mengambil daftar peran dari database berdasarkan pencarian
         $subjects = Subject::latest()->when(request()->q, function($subjects) {
             $subjects = $subjects->where('name', 'like', '%'. request()->q . '%');
         })->paginate(10);
 
+        //Menampilkan halaman daftar peran
         return view('subjects.index', compact('subjects'));
     }
 

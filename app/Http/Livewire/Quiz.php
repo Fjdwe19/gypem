@@ -16,85 +16,83 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Quiz extends Component
 {
-    use WithPagination;
+    use WithPagination; // Menggunakan trait WithPagination untuk mempermudah paginasi
+protected $paginationTheme = 'bootstrap'; // Tema paginasi yang digunakan adalah 'bootstrap'
+public $exam_id; // ID ujian
+public $user_id; // ID pengguna
+public $selectedAnswers = []; // Array untuk menyimpan jawaban yang dipilih oleh pengguna
+public $total_question; // Jumlah total pertanyaan pada ujian
+protected $listeners = ['endTimer' => 'submitAnswers']; // Mendengarkan event 'endTimer' yang dipancarkan oleh komponen lain
 
-    protected $paginationTheme = 'bootstrap';
-    public $exam_id;
-    public $user_id;
-    public $selectedAnswers = [];
-    public $total_question;
-    protected $listeners = ['endTimer' => 'submitAnswers'];
+public function mount($id)
+{
+    $this->exam_id = $id; // Menginisialisasi ID ujian saat komponen dipasang
+}
 
-    public function mount($id)
+public function questions()
+{
+    $exam = Exam::findOrFail($this->exam_id); // Mengambil data ujian berdasarkan ID
+    $exam_questions = $exam->questions; // Mengambil daftar pertanyaan pada ujian
+    $this->total_question = $exam_questions->count(); // Menghitung jumlah total pertanyaan pada ujian
+
+    if($this->total_question >= $exam->total_question) { // Memeriksa jika jumlah pertanyaan cukup untuk ujian
+        $questions = $exam->questions()->take($exam->total_question)->paginate(1); // Mengambil pertanyaan sesuai jumlah total pertanyaan ujian
+    } elseif($this->total_question < $exam->total_question ) { // Memeriksa jika jumlah pertanyaan kurang dari total pertanyaan ujian
+        $questions = $exam->questions()->take($this->total_question)->paginate(1); // Mengambil pertanyaan sesuai jumlah total pertanyaan yang tersedia
+    } 
+    return $questions; // Mengembalikan daftar pertanyaan untuk ditampilkan
+}
+
+public function answers($questionId, $option)
+{
+    $this->selectedAnswers[$questionId] = $questionId.'-'.$option; // Memilih jawaban untuk pertanyaan tertentu
+}
+
+public function submitAnswers()
+{
+    if(!empty($this->selectedAnswers)) // Memeriksa jika ada jawaban yang dipilih
     {
-        $this->exam_id = $id;
-        
-    }
-
-    public function questions()
-    {
-        $exam = Exam::findOrFail($this->exam_id);
-        $exam_questions = $exam->questions;
-        $this->total_question = $exam_questions->count();
-
-        if($this->total_question >= $exam->total_question) {
-            $questions = $exam->questions()->take($exam->total_question)->paginate(1);
-        } elseif($this->total_question < $exam->total_question ) {
-            $questions = $exam->questions()->take($this->total_question)->paginate(1);
-        } 
-        return $questions;
-    }
-
-    public function answers($questionId, $option)
-    {
-        $this->selectedAnswers[$questionId] = $questionId.'-'.$option;
-    }
-
-    public function submitAnswers()
-    {
-        if(!empty($this->selectedAnswers))
+        $score = 0; // Nilai awal skor
+        foreach($this->selectedAnswers as $key => $value) // Melakukan iterasi untuk setiap jawaban yang dipilih
         {
-            
-            $score = 0;
-            foreach($this->selectedAnswers as $key => $value)
-            {
-                $userAnswer = "";
-                $rightAnswer = Question::findOrFail($key)->answer;
-                $userAnswer = substr($value, strpos($value,'-')+1);
-                $bobot = 100 / $this->total_question;
-                if($userAnswer == $rightAnswer){
-                    $score = $score + $bobot;
-                }
+            $userAnswer = ""; // Inisialisasi jawaban pengguna
+            $rightAnswer = Question::findOrFail($key)->answer; // Mengambil jawaban yang benar dari pertanyaan
+            $userAnswer = substr($value, strpos($value,'-')+1); // Mendapatkan jawaban yang dipilih oleh pengguna
+            $bobot = 100 / $this->total_question; // Menghitung bobot untuk setiap pertanyaan
+            if($userAnswer == $rightAnswer){ // Memeriksa jika jawaban pengguna benar
+                $score = $score + $bobot; // Menambah skor jika jawaban benar
             }
-        }else{
-            $score = 0;
         }
-        
-        $selectedAnswers_str = json_encode($this->selectedAnswers);
-        $this->user_id = Auth()->id();
-        $user = User::findOrFail($this->user_id);
-        $user_exam = $user->whereHas('exams', function (Builder $query) {
-            $query->where('exam_id',$this->exam_id)->where('user_id',$this->user_id);
-        })->count();
-        if($user_exam == 0)
-        {
-            $user->exams()->attach($this->exam_id, ['history_answer' => $selectedAnswers_str, 'score' => $score]);
-        } else{
-            $user->exams()->updateExistingPivot($this->exam_id, ['history_answer' => $selectedAnswers_str, 'score' => $score]);
-        }
-        
-        return redirect()->route('exams.result', [$score, $this->user_id, $this->exam_id]);
+    }else{
+        $score = 0; // Jika tidak ada jawaban yang dipilih, skor tetap 0
     }
-
-    public function render()
+    
+    $selectedAnswers_str = json_encode($this->selectedAnswers); // Mengubah array jawaban yang dipilih menjadi string JSON
+    $this->user_id = Auth()->id(); // Mengambil ID pengguna yang sedang login
+    $user = User::findOrFail($this->user_id); // Mengambil data pengguna berdasarkan ID
+    $user_exam = $user->whereHas('exams', function (Builder $query) { // Mengecek apakah pengguna sudah melakukan ujian sebelumnya
+        $query->where('exam_id',$this->exam_id)->where('user_id',$this->user_id);
+    })->count();
+    if($user_exam == 0) // Jika belum melakukan ujian sebelumnya
     {
-        return view('livewire.quiz', [
-            'exam'      => Exam::findOrFail($this->exam_id),
-            'questions' => $this->questions(),
-            'video'     => new Video(),
-            'audio'     => new Audio(),
-            'document'  => new Document(),
-            'image'     => new Image()
-        ]);
+        $user->exams()->attach($this->exam_id, ['history_answer' => $selectedAnswers_str, 'score' => $score]); // Menyimpan hasil ujian baru pengguna
+    } else{ // Jika sudah melakukan ujian sebelumnya
+        $user->exams()->updateExistingPivot($this->exam_id, ['history_answer' => $selectedAnswers_str, 'score' => $score]); // Memperbarui hasil ujian pengguna
     }
+    
+    return redirect()->route('exams.result', [$score, $this->user_id, $this->exam_id]); // Mengarahkan pengguna ke halaman hasil ujian
+}
+
+public function render()
+{
+    return view('livewire.quiz', [ // Menampilkan halaman ujian dengan data yang diperlukan
+        'exam'      => Exam::findOrFail($this->exam_id), // Data ujian
+        'questions' => $this->questions(), // Daftar pertanyaan
+        'video'     => new Video(), // Objek video
+        'audio'     => new Audio(), // Objek audio
+        'document'  => new Document(), // Objek dokumen
+        'image'     => new Image() // Objek gambar
+    ]);
+}
+
 }

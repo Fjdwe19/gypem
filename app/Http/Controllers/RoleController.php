@@ -14,9 +14,10 @@ class RoleController extends Controller
      * @return void
      */
     public function __construct()
-    {
-        $this->middleware(['permission:roles.index|roles.create|roles.edit|roles.delete']);
-    }
+{
+    // Menentukan middleware yang diperlukan untuk mengakses fungsi-fungsi pada kontroler ini
+    $this->middleware(['permission:roles.index|roles.create|roles.edit|roles.delete']); 
+}
 
     /**
      * Display a listing of the resource.
@@ -24,13 +25,15 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $roles = Role::latest()->when(request()->q, function($roles) {
-            $roles = $roles->where('name', 'like', '%'. request()->q . '%');
-        })->paginate(5);
+{
+    // Mengambil daftar peran dari database berdasarkan pencarian
+    $roles = Role::latest()->when(request()->q, function($roles) { 
+        $roles = $roles->where('name', 'like', '%'. request()->q . '%');
+    })->paginate(5);
 
-        return view('roles.index', compact('roles'));
-    }
+    //Menampilkan halaman daftar peran
+    return view('roles.index', compact('roles')); 
+}
 
     /**
      * Show the form for creating a new resource.
@@ -39,8 +42,10 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permissions = Permission::latest()->get();
-        return view('roles.create', compact('permissions'));
+        // Mengambil daftar izin
+        $permissions = Permission::latest()->get(); 
+        // Menampilkan halaman formulir pembuatan peran baru
+        return view('roles.create', compact('permissions')); 
     }
 
     /**

@@ -15,6 +15,7 @@ class VideoController extends Controller
      */
     public function __construct()
     {
+        // Menentukan middleware yang diperlukan untuk mengakses fungsi-fungsi pada kontroler ini
         $this->middleware(['permission:videos.index|videos.create|videos.delete']);
     }
 
@@ -25,10 +26,12 @@ class VideoController extends Controller
      */
     public function index()
     {
+        // Mengambil daftar peran dari database berdasarkan pencarian
         $videos = Video::latest()->when(request()->q, function($videos) {
             $videos = $videos->where('title', 'like', '%'. request()->q . '%');
         })->paginate(10);
 
+        //Menampilkan halaman daftar peran
         return view('videos.index', compact('videos'));
     }
 

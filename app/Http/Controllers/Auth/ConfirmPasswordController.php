@@ -26,6 +26,7 @@ class ConfirmPasswordController extends Controller
      *
      * @var string
      */
+    //menentukan rute yang akan diarahkan setelah suatu tindakan berhasil dilakukan.
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**

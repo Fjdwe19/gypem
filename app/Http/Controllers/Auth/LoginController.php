@@ -42,6 +42,7 @@ class LoginController extends Controller
     //redirect if authenticated
     protected function authenticated(Request $request, $user)
     {
+        //jika berhasil maka kembalikan ke dahsboard
         return redirect()->route('dashboard.index');
     }
 }

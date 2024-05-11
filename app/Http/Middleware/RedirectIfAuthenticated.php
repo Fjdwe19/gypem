@@ -19,14 +19,15 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
-        $guards = empty($guards) ? [null] : $guards;
+        $guards = empty($guards) ? [null] : $guards; // Mengatur default guards jika tidak ada yang diberikan
 
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                foreach ($guards as $guard) { // Melakukan iterasi pada daftar guards
+                    if (Auth::guard($guard)->check()) { // Memeriksa apakah pengguna telah terautentikasi dengan guard tertentu
+                return redirect(RouteServiceProvider::HOME); // Mengarahkan pengguna ke halaman HOME jika terautentikasi
             }
         }
 
-        return $next($request);
+        return $next($request); // Melanjutkan request ke middleware atau handler selanjutnya
+
     }
 }

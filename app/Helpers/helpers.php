@@ -29,3 +29,4 @@ if (! function_exists('TanggalID')) {
         return $parse->translatedFormat('l, d F Y H:i');
     }
 }
+
