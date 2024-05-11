@@ -1,65 +1,65 @@
 {
-    "name": "laravel/laravel", // Nama proyek Laravel
-    "type": "project", // Jenis proyek, dalam hal ini adalah proyek
-    "description": "The Laravel Framework.", // Deskripsi singkat tentang framework Laravel
-    "keywords": ["framework", "laravel"], // Kata kunci terkait proyek
-    "license": "MIT", // Lisensi proyek, dalam hal ini adalah MIT
-    "require": { // Paket yang diperlukan oleh proyek dalam lingkungan produksi
-        "php": "^7.3|^8.0", // Versi PHP yang diperlukan
-        "fideloper/proxy": "^4.4", // Paket untuk mengelola proxy di Laravel
-        "fruitcake/laravel-cors": "^2.0", // Paket untuk menangani CORS di Laravel
-        "guzzlehttp/guzzle": "^7.0.1", // Paket untuk melakukan HTTP requests
-        "laravel/framework": "^8.12", // Framework Laravel
-        "laravel/tinker": "^2.5", // Paket untuk menggunakan fitur tinker di Laravel
-        "laravel/ui": "^3.2", // Paket untuk mempercepat pembuatan antarmuka pengguna di Laravel
-        "livewire/livewire": "^2.4", // Paket untuk membuat komponen interaktif di Laravel
-        "spatie/laravel-permission": "3.18.0" // Paket untuk manajemen izin di Laravel
+    "name": "laravel/laravel",
+    "type": "project",
+    "description": "The Laravel Framework.",
+    "keywords": ["framework", "laravel"],
+    "license": "MIT",
+    "require": {
+        "php": "^7.3|^8.0",
+        "fideloper/proxy": "^4.4",
+        "fruitcake/laravel-cors": "^2.0",
+        "guzzlehttp/guzzle": "^7.0.1",
+        "laravel/framework": "^8.12",
+        "laravel/tinker": "^2.5",
+        "laravel/ui": "^3.2",
+        "livewire/livewire": "^2.4",
+        "spatie/laravel-permission": "3.18.0"
     },
-    "require-dev": { // Paket yang diperlukan oleh proyek dalam lingkungan pengembangan
-        "facade/ignition": "^2.5", // Paket untuk menampilkan pesan kesalahan yang lebih informatif di Laravel
-        "fakerphp/faker": "^1.9.1", // Paket untuk menghasilkan data palsu dalam pengujian
-        "laravel/sail": "^1.0.1", // Paket untuk memfasilitasi pengembangan menggunakan Docker di Laravel
-        "mockery/mockery": "^1.4.2", // Paket untuk melakukan pengujian mock di Laravel
-        "nunomaduro/collision": "^5.0", // Paket untuk memberikan output error yang lebih baik di CLI di Laravel
-        "phpunit/phpunit": "^9.3.3" // Paket untuk melakukan pengujian unit di Laravel
+    "require-dev": {
+        "facade/ignition": "^2.5",
+        "fakerphp/faker": "^1.9.1",
+        "laravel/sail": "^1.0.1",
+        "mockery/mockery": "^1.4.2",
+        "nunomaduro/collision": "^5.0",
+        "phpunit/phpunit": "^9.3.3"
     },
-    "autoload": { // Konfigurasi untuk memuat kelas secara otomatis saat dijalankan
-        "psr-4": { // Namespace dan direktori yang terkait dengan autoloading PSR-4
-            "App\\": "app/", // Namespace untuk aplikasi
-            "Database\\Factories\\": "database/factories/", // Namespace untuk factory
-            "Database\\Seeders\\": "database/seeders/" // Namespace untuk seeder
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
         },
-        "files": [ // Daftar file yang harus dimuat secara otomatis
-            "app/Helpers/helpers.php" // File helper yang dimuat secara otomatis
-        ]
+        "files": [
+            "app/Helpers/helpers.php"
+         ]
     },
-    "autoload-dev": { // Konfigurasi untuk memuat kelas secara otomatis saat dijalankan dalam mode pengembangan
-        "psr-4": { // Namespace dan direktori terkait dengan autoloading PSR-4
-            "Tests\\": "tests/" // Namespace untuk pengujian
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
         }
     },
-    "scripts": { // Skrip yang dijalankan oleh Composer pada peristiwa tertentu
-        "post-autoload-dump": [ // Skrip yang dijalankan setelah autoload dump
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump", // Skrip untuk Laravel
-            "@php artisan package:discover --ansi" // Skrip untuk menemukan paket Laravel
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
         ],
-        "post-root-package-install": [ // Skrip yang dijalankan setelah paket root terinstall
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"" // Skrip untuk menghasilkan file .env jika belum ada
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
-        "post-create-project-cmd": [ // Skrip yang dijalankan setelah perintah membuat proyek
-            "@php artisan key:generate --ansi" // Skrip untuk menghasilkan kunci aplikasi Laravel
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
         ]
     },
-    "extra": { // Informasi tambahan yang tidak termasuk dalam standar composer.json
-        "laravel": { // Konfigurasi spesifik untuk Laravel
-            "dont-discover": [] // Paket yang tidak ingin ditemukan secara otomatis oleh Laravel
+    "extra": {
+        "laravel": {
+            "dont-discover": []
         }
     },
-    "config": { // Konfigurasi tambahan untuk Composer
-        "optimize-autoloader": true, // Mengoptimalkan autoloader untuk kinerja yang lebih baik
-        "preferred-install": "dist", // Metode preferensial untuk menginstal paket
-        "sort-packages": true // Mengurutkan daftar paket dalam composer.json
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
     },
-    "minimum-stability": "dev", // Stabilitas minimum proyek
-    "prefer-stable": true // Lebih memilih stabilitas dalam resolusi dependensi
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

@@ -3,3 +3,4 @@
 *.scss linguist-vendored
 *.js linguist-vendored
 CHANGELOG.md export-ignore
+#jangan diubah ya rek clone clone aja ini penting
