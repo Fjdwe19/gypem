@@ -35,6 +35,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::group(['middleware' => 'auth'], function(){
 
+    //sertificate
+    Route::get('sertificate', [\App\Http\Controllers\SertificateController::class, 'index'])->name('sertificate.index');
+    Route::post('sertificate', [\App\Http\Controllers\SertificateController::class, 'process'])->name('sertificate.process');
+
     //dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
@@ -91,4 +95,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('exams/student/{id}', [ExamController::class, 'student'])->name('exams.student');
     Route::put('exams/assign/{id}', [ExamController::class, 'assign'])->name('exams.assign');
     Route::get('/exams/review/{user_id}/{exam_id}', [ExamController::class, 'review'])->name('exams.review');
+
+    
+    // Route::post('/sertificate',[\App\Http\Controllers\SertificateController::class,'process'])->name('sertificate.index');
+
 });
+

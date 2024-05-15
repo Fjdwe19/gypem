@@ -95,9 +95,9 @@
                         @endcan
 
                         @if(auth()->user()->can('images.index') || auth()->user()->can('videos.index') || auth()->user()->can('audios.index') || auth()->user()->can('documents.index'))
-                        <li class="menu-header">Pembuatan Soal</li>
+                        <li class="menu-header">Pembuatan</li>
                         @endif
-                        
+
                         @can('images.index')
                         <li class="{{ setActive('/image') }}"><a class="nav-link"
                                 href="{{ route('images.index') }}"><i class="fas fa-image"></i>
@@ -134,7 +134,7 @@
 
                         <li
                             class="dropdown {{ setActive('admin/role'). setActive('admin/permission'). setActive('admin/user') }}">
-                            @if(auth()->user()->can('roles.index') || auth()->user()->can('permission.index') || auth()->user()->can('users.index'))
+                            @if(auth()->user()->can('roles.index') || auth()->user()->can('permission.index') || auth()->user()->can('users.index') || auth()->user()->can('sertificate.index'))
                                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Pengaturan Tambahan</span></a>
                             @endif
                             
@@ -156,6 +156,7 @@
                                         href="{{ route('users.index') }}"><i class="fas fa-users"></i> Users</a>
                                 </li>
                                 @endcan
+                                <li class="{{ setActive('sertificate') }}"><a class="nav-link" href="{{ route('sertificate.index') }}"><i class="fas fa-bell"></i><span>Sertificate</span></a></li>
                             </ul>
                         </li>
                     </ul>
