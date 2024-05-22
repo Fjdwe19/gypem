@@ -19,6 +19,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'exams.create']);
         Permission::create(['name' => 'exams.edit']);
         Permission::create(['name' => 'exams.delete']);
+        // Permission::create(['name' => 'exams.show']);
 
         //permission for subjects
         Permission::create(['name' => 'subjects.index']);

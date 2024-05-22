@@ -193,4 +193,43 @@ class ExamController extends Controller
         $exam = Exam::findOrFail($id);
  
     }
+
+    public function start($id)
+    {
+        $exam = Exam::findOrFail($id);
+        $exam_questions = $exam->questions;
+
+        if ($exam_questions->count() == 0) {
+            return back()->with(['error' => 'Belum ada Pertanyaan']);
+        }
+        return view('exams.start', compact('id'));
+    }
+
+    public function result($score, $userId, $examId)
+    {
+        $user = User::findOrFail($userId);
+        $exam = Exam::findOrFail($examId);
+        return view('exams.result', compact('score', 'user', 'exam'));
+    }
+
+    public function student($id)
+    {
+        $exam = Exam::findOrFail($id);
+        return view('exams.student', compact('exam'));
+    }
+
+    public function assign(Request $request, $id)
+    {
+        $exam = Exam::findOrFail($id);
+
+        $exam->users()->sync($request->input('students'));
+
+        return redirect('/exams');
+
+    }
+
+    public function review($userId, $examId)
+    {
+        return view('exams.review', compact('userId', 'examId'));
+    }
 }

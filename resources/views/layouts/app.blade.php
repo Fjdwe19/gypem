@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Dashboard &mdash; Gypem</title>
-    <link rel="shortcut icon" href="{{ asset('assets/img/gear.svg') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/img/logss.png') }}" type="image/x-icon">
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/modules/fontawesome/css/all.min.css') }}">
@@ -25,7 +25,7 @@
     @livewireStyles
 </head>
 
-<body style="background: #e2e8f0">
+<body style="background: ghostwhite;">
     <div id="app">
         <div class="main-wrapper main-wrapper-1">
             <div class="navbar-bg"></div>
@@ -60,6 +60,7 @@
             <div class="main-sidebar sidebar-style-2">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
+                        <img src="{{asset('assets/img/logss.png')}}" style="width:40px; height: 40px;">
                         <a href="index.html">GYPEM APP</a>
                     </div>
                     <div class="sidebar-brand sidebar-brand-sm">
@@ -85,7 +86,7 @@
                         @can('subjects.index')
                         <li class="{{ setActive('/subject') }}"><a class="nav-link"
                                 href="{{ route('subjects.index') }}"><i class="fas fa-atlas"></i>
-                                <span>Modul</span></a></li>
+                                <span>Jenis Soal</span></a></li>
                         @endcan
 
                         @can('events.index')

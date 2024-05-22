@@ -89,15 +89,11 @@ Route::group(['middleware' => 'auth'], function(){
 
     //exams
     
-    Route::resource('exams', ExamController::class); 
+     Route::resource('exams', ExamController::class); 
     Route::get('/exams/result/{score}/{user_id}/{exam_id}', [ExamController::class, 'result'])->name('exams.result');
     Route::get('/exams/start/{id}', [ExamController::class, 'start'])->name('exams.start');
     Route::get('exams/student/{id}', [ExamController::class, 'student'])->name('exams.student');
     Route::put('exams/assign/{id}', [ExamController::class, 'assign'])->name('exams.assign');
     Route::get('/exams/review/{user_id}/{exam_id}', [ExamController::class, 'review'])->name('exams.review');
-
-    
-    // Route::post('/sertificate',[\App\Http\Controllers\SertificateController::class,'process'])->name('sertificate.index');
-
 });
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Login &mdash; Sekolah</title>
+    <title>Login &mdash; Gypem </title>
 
     <link rel="shortcut icon" href="{{ asset('assets/img/school.svg') }}" type="image/x-icon">
     <script
@@ -82,8 +82,7 @@
           <div class="content">
             <h3>GYPEM OLYMPIADE</h3>
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-              ex ratione. Aliquid!
+              Silahkan Login Terlebiih dahulu, Masukkan Username dan Password dengan baik dan Bennar
             </p>
           </div>
           <img src="{{asset('assets/log.svg')}}" class="image" alt="" />

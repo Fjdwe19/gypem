@@ -60,7 +60,7 @@
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>STUDENTS</h4>
+                    <h4>User</h4>
                   </div>
                   <div class="card-body">
                     {{ App\Models\User::role('student')->count() ?? '0' }}
@@ -89,6 +89,12 @@
           </div>
         </div>
         @endhasrole
+         <!-- style="background-color: white;" -->
+    <div class="main">
+        <div class="section-header">
+            <h1>Petunjuk Penggunaan</h1>
+        </div>
+        <h5 style="color: grey;">Data modul</h5>
     </section>
 </div>
 @endsection
