@@ -4,81 +4,57 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Mapel</h1>
+            <h1>Event</h1>
         </div>
-
         <div class="section-body">
-
-            @can('subjects.create')
+            @can('images.create')
                 <div class="card">
                     <div class="card-header">
-                        <h4><i class="fas fa-atlas"></i> New Mapel</h4>
+                        <h4><i class="fas fa-image"></i> Tambah Event</h4>
                     </div>
 
                     <div class="card-body">
-
-                        <form action="{{ route('subjects.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('event.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-
                             <div class="form-group">
-                                <label>NAME</label>
-                                <input type="text" name="name" value="{{ old('name') }}" placeholder="Masukkan Judul Subject" class="form-control @error('name') is-invalid @enderror">
+                                <label>JUDUL EVENT</label>
+                                <input type="text" name="title" value="{{ old('title') }}" placeholder="Masukkan Judul Gambar" class="form-control @error('title') is-invalid @enderror">
 
-                                @error('name')
+                                @error('title')
                                 <div class="invalid-feedback" style="display: block">
                                     {{ $message }}
                                 </div>
                                 @enderror
                             </div>
 
-                            <button class="btn btn-primary mr-1 btn-submit" type="submit"><i class="fa fa-check-circle"></i> SUBMIT</button>
+                            <div class="form-group">
+                                <label>GAMBAR EVENT</label>
+                                <input type="file" name="image" class="form-control @error('image') is-invalid @enderror">
+
+                                @error('image')
+                                <div class="invalid-feedback" style="display: block">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label>CAPTION</label>
+                                <input type="text" name="caption" value="{{ old('caption') }}" placeholder="Masukkan Caption Gambar" class="form-control @error('caption') is-invalid @enderror">
+
+                                @error('caption')
+                                <div class="invalid-feedback" style="display: block">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
+                            <button class="btn btn-primary mr-1 btn-submit" type="submit"><i class="fa fa-upload"></i> UPLOAD</button>
                             <button class="btn btn-warning btn-reset" type="reset"><i class="fa fa-redo"></i> RESET</button>
-
-
                         </form>
-
                     </div>
                 </div>
             @endcan
-
-            <div class="card">
-                <div class="card-header">
-                    <h4><i class="fas fa-atlas"></i> Subject</h4>
-                </div>
-
-                <div class="card-body">
-                    
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th scope="col" style="text-align: center;width: 6%">NO.</th>
-                                <th scope="col">NAME</th>
-                                <th scope="col" style="width: 15%;text-align: center">AKSI</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($subjects as $no => $subject)
-                                <tr>
-                                    <th scope="row" style="text-align: center">{{ ++$no + ($subjects->currentPage()-1) * $subjects->perPage() }}</th>
-                                    <td>{{ $subject->name }}</td>
-                                    <td class="text-center">
-                                        @can('subjects.delete')
-                                            <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $subject->id }}">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        @endcan
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                        <div style="text-align: center">
-                            {{$subjects->links("vendor.pagination.bootstrap-4")}}
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
     </section>
@@ -106,7 +82,7 @@
 
                     //ajax delete
                     jQuery.ajax({
-                        url: "{{ route("subjects.index") }}/"+id,
+                        url: "{{ route("event.index") }}/"+id,
                         data:     {
                             "id": id,
                             "_token": token

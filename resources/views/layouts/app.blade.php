@@ -71,6 +71,12 @@
                         <li class="{{ setActive('/dashboard') }}"><a class="nav-link"
                                 href="{{ route('dashboard.index') }}"><i class="fas fa-tachometer-alt"></i>
                                 <span>Dashboard</span></a></li>
+                        @can('events.index')
+                        <li class="{{ setActive('admin/event') }}"><a class="nav-link"
+                                href="#"><i class="fas fa-bell"></i>
+                                <span>Events</span></a></li>
+                        @endcan
+
                         @can('exams.index')
                         <li class="{{ setActive('/exam') }}"><a class="nav-link"
                                 href="{{  route('exams.index') }}"><i class="fas fa-book-open"></i>
@@ -86,17 +92,11 @@
                         @can('subjects.index')
                         <li class="{{ setActive('/subject') }}"><a class="nav-link"
                                 href="{{ route('subjects.index') }}"><i class="fas fa-atlas"></i>
-                                <span>Jenis Soal</span></a></li>
-                        @endcan
-
-                        @can('events.index')
-                        <li class="{{ setActive('admin/event') }}"><a class="nav-link"
-                                href="#"><i class="fas fa-bell"></i>
-                                <span>Agenda</span></a></li>
+                                <span>Mapel</span></a></li>
                         @endcan
 
                         @if(auth()->user()->can('images.index') || auth()->user()->can('videos.index') || auth()->user()->can('audios.index') || auth()->user()->can('documents.index'))
-                        <li class="menu-header">Pembuatan</li>
+                        <li class="menu-header">Pembuatan Soal</li>
                         @endif
 
                         @can('images.index')

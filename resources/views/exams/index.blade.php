@@ -21,11 +21,11 @@
                             <div class="input-group mb-3">
                                 @can('exams.create')
                                     <div class="input-group-prepend">
-                                        <a href="{{ route('exams.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
+                                        <a href="{{ route('exams.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH </a>
                                     </div>
                                 @endcan
                                 <input type="text" class="form-control" name="q"
-                                       placeholder="cari berdasarkan nama exam">
+                                       placeholder="cari berdasarkan nama ujian">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> CARI
                                     </button>
@@ -35,65 +35,63 @@
                         @endhasanyrole
                     </form>
                     <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th scope="col" style="text-align: center;width: 6%">NO.</th>
-                                <th scope="col">NAMA</th>
-                                <th scope="col">WAKTU</th>
-                                <th scope="col">JUMLAH SOAL</th>
-                                @hasanyrole('teacher|admin')
-                                <th scope="col">SISWA YANG MENGERJAKAN</th>
-                                @endhasanyrole
-                                @hasrole('student')
-                                <th scope="col">STATUS</th>
-                                @endhasrole
-                                <th scope="col">MULAI</th>
-                                <th scope="col">BERAKHIR</th>
-                                <th scope="col" style="width: 15%;text-align: center">AKSI</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($exams as $no => $exam)
-                                <tr>
-                                    <th scope="row" style="text-align: center">{{ ++$no + ($exams->currentPage()-1) * $exams->perPage() }}</th>
-                                    <td>{{ $exam->name }}</td>
-                                    <td>{{ $exam->time }}</td>
-                                    <td>{{ $exam->questions->count() }}</td>
-                                    @hasanyrole('teacher|admin')
-                                    <td>{{ $exam->users->count() }}</td>
-                                    @endhasanyrole
-                                    @hasrole('student')
-                                    <td>{{  $user->getScore(Auth()->id(), $exam->id) !== null ? $user->getScore(Auth()->id(), $exam->id) : "Belum dikerjakan"  }}</td>
-                                    @endhasrole
-                                    <td>{{ TanggalID($exam->start) }}</td>
-                                    <td>{{ TanggalID($exam->end) }}</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('exams.show', $exam->id) }}" class="btn btn-sm btn-info">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        @can('exams.edit')
-                                            <a href="{{ route('exams.edit', $exam->id) }}" class="btn btn-sm btn-primary">
+                        <table class="table table-bordered table-striped table-hover">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col" style="text-align: center; width: 5%;">NO.</th>
+                                        <th scope="col">NAMA</th>
+                                        <th scope="col">WAKTU</th>
+                                        <th scope="col">JUMLAH SOAL</th>
+                                        @hasanyrole('teacher|admin')
+                                        <th scope="col">SISWA YANG MENGERJAKAN</th>
+                                        @endhasanyrole
+                                        @hasrole('student')
+                                        <th scope="col">STATUS</th>
+                                        @endhasrole
+                                        <th scope="col">MULAI</th>
+                                        <th scope="col">BERAKHIR</th>
+                                        <th scope="col" style="width: 20%; text-align: center;">AKSI</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($exams as $no => $exam)
+                                    <tr>
+                                        <th scope="row" style="text-align: center;">{{ ++$no + ($exams->currentPage()-1) * $exams->perPage() }}</th>
+                                        <td>{{ $exam->name }}</td>
+                                        <td>{{ $exam->time }}</td>
+                                        <td>{{ $exam->questions->count() }}</td>
+                                        @hasanyrole('teacher|admin')
+                                        <td>{{ $exam->users->count() }}</td>
+                                        @endhasanyrole
+                                        @hasrole('student')
+                                        <td>{{ $user->getScore(Auth()->id(), $exam->id) !== null ? $user->getScore(Auth()->id(), $exam->id) : "Belum dikerjakan" }}</td>
+                                        @endhasrole
+                                        <td>{{ TanggalID($exam->start) }}</td>
+                                        <td>{{ TanggalID($exam->end) }}</td>
+                                        <td class="justify-between-center">
+                                            <a href="{{ route('exams.show', $exam->id) }}" class="btn btn-sm btn-info" title="Lihat">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                            @can('exams.edit')
+                                            <a href="{{ route('exams.edit', $exam->id) }}" class="btn btn-sm btn-primary" title="Edit">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </a>
-                                        @endcan
-                                        
-                                        @hasanyrole('teacher|admin')
-                                        <a href="{{ route('exams.student', $exam->id) }}" class="btn btn-sm btn-primary">
-                                            <i class="fa fa-door-open"></i>
-                                        </a>
-                                        @endhasanyrole
-                                        
-                                        @can('exams.delete')
-                                            <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $exam->id }}">
+                                            @endcan
+                                            @hasanyrole('teacher|admin')
+                                            <a href="{{ route('exams.student', $exam->id) }}" class="btn btn-sm btn-warning" title="Lihat Siswa">
+                                                <i class="fa fa-door-open"></i>
+                                            </a>
+                                            @endhasanyrole
+                                            @can('exams.delete')
+                                            <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $exam->id }}" title="Hapus">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                        @endcan
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                                            @endcan
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         <div style="text-align: center">
                             {{$exams->links("vendor.pagination.bootstrap-4")}}
                         </div>

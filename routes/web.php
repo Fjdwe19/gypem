@@ -9,6 +9,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermissionController;
@@ -87,8 +88,12 @@ Route::group(['middleware' => 'auth'], function(){
         'show'
     ]);
 
+    //events
+    Route::resource('event', ImageController::class)->except([
+        'show', 'create', 'edit', 'update'
+    ]);
+
     //exams
-    
      Route::resource('exams', ExamController::class); 
     Route::get('/exams/result/{score}/{user_id}/{exam_id}', [ExamController::class, 'result'])->name('exams.result');
     Route::get('/exams/start/{id}', [ExamController::class, 'start'])->name('exams.start');

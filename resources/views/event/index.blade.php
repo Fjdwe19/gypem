@@ -4,46 +4,33 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Mapel</h1>
+            <h1>Event</h1>
         </div>
-
-        <div class="section-body">
-
-            @can('subjects.create')
-                <div class="card">
-                    <div class="card-header">
-                        <h4><i class="fas fa-atlas"></i> New Mapel</h4>
-                    </div>
-
-                    <div class="card-body">
-
-                        <form action="{{ route('subjects.store') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-
-                            <div class="form-group">
-                                <label>NAME</label>
-                                <input type="text" name="name" value="{{ old('name') }}" placeholder="Masukkan Judul Subject" class="form-control @error('name') is-invalid @enderror">
-
-                                @error('name')
-                                <div class="invalid-feedback" style="display: block">
-                                    {{ $message }}
+        <div class="card-body">
+            <form action="{{ route('event.index') }}" method="GET">
+                        @hasanyrole('teacher|admin')
+                        <div class="form-group">
+                            <div class="input-group mb-3">
+                                @can('exams.create')
+                                    <div class="input-group-prepend">
+                                        <a href="{{ route('event.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH </a>
+                                    </div>
+                                @endcan
+                                <input type="text" class="form-control" name="q"
+                                       placeholder="cari berdasarkan nama event">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> CARI
+                                    </button>
                                 </div>
-                                @enderror
                             </div>
-
-                            <button class="btn btn-primary mr-1 btn-submit" type="submit"><i class="fa fa-check-circle"></i> SUBMIT</button>
-                            <button class="btn btn-warning btn-reset" type="reset"><i class="fa fa-redo"></i> RESET</button>
-
-
-                        </form>
-
-                    </div>
-                </div>
-            @endcan
-
+                        </div>
+                        @endhasanyrole
+                    </form>
+        </div>
+        <div class="section-body">
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-atlas"></i> Subject</h4>
+                    <h4><i class="fas fa-image"></i> Image</h4>
                 </div>
 
                 <div class="card-body">
@@ -53,18 +40,22 @@
                             <thead>
                             <tr>
                                 <th scope="col" style="text-align: center;width: 6%">NO.</th>
-                                <th scope="col">NAME</th>
+                                <th scope="col">IMAGE</th>
+                                <th scope="col">JUDUL EVENT</th>
+                                <th scope="col">CAPTION</th>
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($subjects as $no => $subject)
+                            @foreach ($images as $no => $image)
                                 <tr>
-                                    <th scope="row" style="text-align: center">{{ ++$no + ($subjects->currentPage()-1) * $subjects->perPage() }}</th>
-                                    <td>{{ $subject->name }}</td>
+                                    <th scope="row" style="text-align: center">{{ ++$no + ($images->currentPage()-1) * $images->perPage() }}</th>
+                                    <td><img src="{{ Storage::url('public/event/'.$image->link) }}" style="width: 150px"></td>
+                                    <td>{{ $image->title }}</td>
+                                    <td>{{ $image->caption }}</td>
                                     <td class="text-center">
-                                        @can('subjects.delete')
-                                            <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $subject->id }}">
+                                        @can('images.delete')
+                                            <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $image->id }}">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         @endcan
@@ -74,7 +65,7 @@
                             </tbody>
                         </table>
                         <div style="text-align: center">
-                            {{$subjects->links("vendor.pagination.bootstrap-4")}}
+                            {{$images->links("vendor.pagination.bootstrap-4")}}
                         </div>
                     </div>
                 </div>
@@ -106,7 +97,7 @@
 
                     //ajax delete
                     jQuery.ajax({
-                        url: "{{ route("subjects.index") }}/"+id,
+                        url: "{{ route("event.index") }}/"+id,
                         data:     {
                             "id": id,
                             "_token": token

@@ -33,11 +33,11 @@
                         </div>
                     </form>
                     <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead class="thead-dark">
                             <tr>
                                 <th scope="col" style="text-align: center;width: 6%">NO.</th>
-                                <th scope="col">JENIS SOAL</th>
+                                <th scope="col">MAPEL</th>
                                 <th scope="col">DETAIL</th>
                                 <th scope="col">LAMPIRAN</th>
                                 <th scope="col">A</th>
@@ -78,19 +78,18 @@
                                     <td>{{ $question->answer }}</td>
                                     <td>{{ $question->explanation }}</td>
                                     <td>{{ $user->getName($question->created_by) }}</td>
-                                    <td class="text-center">
-                                        @can('questions.edit')
-                                            <a href="{{ route('questions.edit', $question->id) }}" class="btn btn-sm btn-primary">
+
+                                    <!-- p -->
+                                    <td class="justify-between-center">
+                                            <a href="{{ route('questions.edit', $question->id) }}" class="btn btn-sm btn-info" title="Lihat">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </a>
-                                        @endcan
-                                        
-                                        @can('questions.delete')
-                                            <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $question->id }}">
+                                            @can('exams.delete')
+                                            <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $question->id }}" title="Hapus">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                        @endcan
-                                    </td>
+                                            @endcan
+                                        </td>
                                 </tr>
                             @endforeach
                             </tbody>

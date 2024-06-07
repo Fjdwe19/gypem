@@ -11,7 +11,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-question"></i> Tambah SOAL</h4>
+                    <h4><i class="fas fa-question"></i> Tambah Soal</h4>
                 </div>
 
                 <div class="card-body">
@@ -19,7 +19,7 @@
                         @csrf
 
                         <div class="form-group">
-                            <label>JENIS SOAL</label>
+                            <label>MAPEL</label>
                             <select class="form-control select-subject @error('subject_id') is-invalid @enderror" name="subject_id">
                                 <option value="">- PILIH -</option>
                                 @foreach ($subjects as $subject)
