@@ -3,9 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Event;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
+    /**
+     * Membuat instance controller baru.
+     *
+     * @return void
+     */
     public function __construct()
     {
         // Menerapkan middleware untuk izin akses pada indeks, membuat, dan menghapus gambar
@@ -19,7 +26,13 @@ class EventController extends Controller
      */
     public function index()
     {
-        return view('images.index', compact('images'));
+        // Mengambil daftar gambar terbaru, jika ada pencarian, melakukan filter berdasarkan judul
+        $images = Event::latest()->when(request()->q, function($images) {
+            $images = $images->where('title', 'like', '%'. request()->q . '%');
+        })->paginate(10);
+
+        // Mengirimkan data gambar ke tampilan indeks gambar
+        return view('events.index', compact('images'));
     }
 
     /**
@@ -42,7 +55,7 @@ class EventController extends Controller
         $image->storeAs('public/images', $image->hashName());
 
         // Simpan informasi gambar ke database
-        $image = Image::create([
+        $image = Event::create([
             'title'     => $request->input('title'),
             'link'     => $image->hashName(),
             'caption'   => $request->input('caption')
@@ -50,9 +63,9 @@ class EventController extends Controller
 
         // Redirect dengan pesan sukses atau error
         if($image){
-            return redirect()->route('images.index')->with(['success' => 'Data Berhasil Disimpan!']);
+            return redirect()->route('events.index')->with(['success' => 'Data Berhasil Disimpan!']);
         }else{
-            return redirect()->route('images.index')->with(['error' => 'Data Gagal Disimpan!']);
+            return redirect()->route('events.index')->with(['error' => 'Data Gagal Disimpan!']);
         }
     }
 
@@ -65,7 +78,7 @@ class EventController extends Controller
     public function destroy($id)
     {
         // Temukan dan hapus gambar berdasarkan ID
-        $image = Image::findOrFail($id);
+        $image = Event::findOrFail($id);
         $link= Storage::disk('local')->delete('public/images/'.$image->link);
         $image->delete();
 

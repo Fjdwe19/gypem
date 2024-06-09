@@ -6,20 +6,15 @@
         <div class="section-header">
             <h1>Image</h1>
         </div>
-
         <div class="section-body">
-
             @can('images.create')
                 <div class="card">
                     <div class="card-header">
                         <h4><i class="fas fa-image"></i> Upload Image</h4>
                     </div>
-
                     <div class="card-body">
-
                         <form action="{{ route('images.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-
                             <div class="form-group">
                                 <label>TITLE</label>
                                 <input type="text" name="title" value="{{ old('title') }}" placeholder="Masukkan Judul Gambar" class="form-control @error('title') is-invalid @enderror">
@@ -55,10 +50,7 @@
 
                             <button class="btn btn-primary mr-1 btn-submit" type="submit"><i class="fa fa-upload"></i> UPLOAD</button>
                             <button class="btn btn-warning btn-reset" type="reset"><i class="fa fa-redo"></i> RESET</button>
-
-
                         </form>
-
                     </div>
                 </div>
             @endcan

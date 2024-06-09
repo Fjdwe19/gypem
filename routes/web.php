@@ -14,6 +14,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermissionController;
 use App\Models\Exam;
+use App\Models\Event;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,9 +90,9 @@ Route::group(['middleware' => 'auth'], function(){
     ]);
 
     //events
-    Route::resource('event', ImageController::class)->except([
-        'show', 'create', 'edit', 'update'
-    ]);
+   Route::resource('events', EventController::class)->except([
+    'show', 'create', 'edit', 'update'
+    ]);;
 
     //exams
      Route::resource('exams', ExamController::class); 

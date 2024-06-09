@@ -4,30 +4,57 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Event</h1>
-        </div>
-        <div class="card-body">
-            <form action="{{ route('event.index') }}" method="GET">
-                        @hasanyrole('teacher|admin')
-                        <div class="form-group">
-                            <div class="input-group mb-3">
-                                @can('exams.create')
-                                    <div class="input-group-prepend">
-                                        <a href="{{ route('event.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH </a>
-                                    </div>
-                                @endcan
-                                <input type="text" class="form-control" name="q"
-                                       placeholder="cari berdasarkan nama event">
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> CARI
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        @endhasanyrole
-                    </form>
+            <h1>Image</h1>
         </div>
         <div class="section-body">
+            @can('events.create')
+                <div class="card">
+                    <div class="card-header">
+                        <h4><i class="fas fa-image"></i> Upload Image</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('events.store') }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <label>TITLE</label>
+                                <input type="text" name="title" value="{{ old('title') }}" placeholder="Masukkan Judul Gambar" class="form-control @error('title') is-invalid @enderror">
+
+                                @error('title')
+                                <div class="invalid-feedback" style="display: block">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label>GAMBAR</label>
+                                <input type="file" name="image" class="form-control @error('image') is-invalid @enderror">
+
+                                @error('image')
+                                <div class="invalid-feedback" style="display: block">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label>CAPTION</label>
+                                <input type="text" name="caption" value="{{ old('caption') }}" placeholder="Masukkan Caption Gambar" class="form-control @error('caption') is-invalid @enderror">
+
+                                @error('caption')
+                                <div class="invalid-feedback" style="display: block">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
+                            <button class="btn btn-primary mr-1 btn-submit" type="submit"><i class="fa fa-upload"></i> UPLOAD</button>
+                            <button class="btn btn-warning btn-reset" type="reset"><i class="fa fa-redo"></i> RESET</button>
+                        </form>
+                    </div>
+                </div>
+            @endcan
+
             <div class="card">
                 <div class="card-header">
                     <h4><i class="fas fa-image"></i> Image</h4>
@@ -41,7 +68,7 @@
                             <tr>
                                 <th scope="col" style="text-align: center;width: 6%">NO.</th>
                                 <th scope="col">IMAGE</th>
-                                <th scope="col">JUDUL EVENT</th>
+                                <th scope="col">TITLE</th>
                                 <th scope="col">CAPTION</th>
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
                             </tr>
@@ -50,7 +77,7 @@
                             @foreach ($images as $no => $image)
                                 <tr>
                                     <th scope="row" style="text-align: center">{{ ++$no + ($images->currentPage()-1) * $images->perPage() }}</th>
-                                    <td><img src="{{ Storage::url('public/event/'.$image->link) }}" style="width: 150px"></td>
+                                    <td><img src="{{ Storage::url('public/images/'.$image->link) }}" style="width: 150px"></td>
                                     <td>{{ $image->title }}</td>
                                     <td>{{ $image->caption }}</td>
                                     <td class="text-center">
@@ -97,7 +124,7 @@
 
                     //ajax delete
                     jQuery.ajax({
-                        url: "{{ route("event.index") }}/"+id,
+                        url: "{{ route("images.index") }}/"+id,
                         data:     {
                             "id": id,
                             "_token": token

@@ -71,10 +71,11 @@
                         <li class="{{ setActive('/dashboard') }}"><a class="nav-link"
                                 href="{{ route('dashboard.index') }}"><i class="fas fa-tachometer-alt"></i>
                                 <span>Dashboard</span></a></li>
+                        <!-- Event -->
                         @can('events.index')
-                        <li class="{{ setActive('admin/event') }}"><a class="nav-link"
-                                href="#"><i class="fas fa-bell"></i>
-                                <span>Events</span></a></li>
+                        <li class="{{ setActive('/event') }}"><a class="nav-link"
+                                href="{{ route('events.index') }}"><i class="fas fa-image"></i>
+                                <span>Event</span></a></li>
                         @endcan
 
                         @can('exams.index')
@@ -82,6 +83,11 @@
                                 href="{{  route('exams.index') }}"><i class="fas fa-book-open"></i>
                                 <span>Ujian</span></a></li>
                         @endcan
+
+                        <!-- Pembuatan Soal -->
+                        @if(auth()->user()->can('images.index') || auth()->user()->can('videos.index') || auth()->user()->can('audios.index') || auth()->user()->can('documents.index'))
+                        <li class="menu-header">Pembuatan Soal</li>
+                        @endif
 
                         @can('questions.index')
                         <li class="{{ setActive('/question') }}"><a class="nav-link"
@@ -95,32 +101,28 @@
                                 <span>Mapel</span></a></li>
                         @endcan
 
-                        @if(auth()->user()->can('images.index') || auth()->user()->can('videos.index') || auth()->user()->can('audios.index') || auth()->user()->can('documents.index'))
-                        <li class="menu-header">Pembuatan Soal</li>
-                        @endif
-
                         @can('images.index')
                         <li class="{{ setActive('/image') }}"><a class="nav-link"
                                 href="{{ route('images.index') }}"><i class="fas fa-image"></i>
-                                <span>Gambar</span></a></li>
+                                <span>Soal Gambar</span></a></li>
                         @endcan
 
                         @can('videos.index')
                         <li class="{{ setActive('/video') }}"><a class="nav-link"
                                 href="{{ route('videos.index') }}"><i class="fas fa-video"></i>
-                                <span>Video</span></a></li>
+                                <span>Soal Video</span></a></li>
                         @endcan
 
                         @can('audios.index')
                         <li class="{{ setActive('/audio') }}"><a class="nav-link"
                                 href="{{ route('audios.index') }}"><i class="fas fa-volume-up"></i>
-                                <span>Audio</span></a></li>
+                                <span>Soal Audio</span></a></li>
                         @endcan
 
                         @can('documents.index')
                         <li class="{{ setActive('/document') }}"><a class="nav-link"
                                 href="{{ route('documents.index') }}"><i class="fas fa-file-word"></i>
-                                <span>Document</span></a></li>
+                                <span>Soal Document</span></a></li>
                         @endcan
 
                         @if(auth()->user()->can('roles.index') || auth()->user()->can('permission.index') || auth()->user()->can('users.index'))

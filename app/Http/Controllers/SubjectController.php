@@ -28,7 +28,7 @@ class SubjectController extends Controller
         // Mengambil daftar peran dari database berdasarkan pencarian
         $subjects = Subject::latest()->when(request()->q, function($subjects) {
             $subjects = $subjects->where('name', 'like', '%'. request()->q . '%');
-        })->paginate(10);
+        })->paginate(5);
 
         //Menampilkan halaman daftar peran
         return view('subjects.index', compact('subjects'));
