@@ -7,6 +7,7 @@
             <h1>Image</h1>
         </div>
         <div class="section-body">
+            @hasanyrole('teacher|admin')
             @can('events.create')
                 <div class="card">
                     <div class="card-header">
@@ -54,7 +55,8 @@
                     </div>
                 </div>
             @endcan
-
+            @endhasanyrole
+            <livewire:question-checklist />
             <div class="card">
                 <div class="card-header">
                     <h4><i class="fas fa-image"></i> Image</h4>

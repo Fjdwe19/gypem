@@ -92,7 +92,8 @@ Route::group(['middleware' => 'auth'], function(){
     //events
    Route::resource('events', EventController::class)->except([
     'show', 'create', 'edit', 'update'
-    ]);;
+    ]);
+   // Route::get('events', [EventController::class, 'cb'])->name('events.show');
 
     //exams
      Route::resource('exams', ExamController::class); 

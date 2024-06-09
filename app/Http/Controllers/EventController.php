@@ -29,7 +29,7 @@ class EventController extends Controller
         // Mengambil daftar gambar terbaru, jika ada pencarian, melakukan filter berdasarkan judul
         $images = Event::latest()->when(request()->q, function($images) {
             $images = $images->where('title', 'like', '%'. request()->q . '%');
-        })->paginate(10);
+        })->paginate(5);
 
         // Mengirimkan data gambar ke tampilan indeks gambar
         return view('events.index', compact('images'));
@@ -41,6 +41,7 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         // Validasi input
@@ -52,7 +53,10 @@ class EventController extends Controller
 
         // Unggah gambar
         $image = $request->file('image');
-        $image->storeAs('public/images', $image->hashName());
+        $path = $image->storeAs('public/images', $image->hashName());
+
+        // Log path untuk debugging
+        \Log::info('Image stored at: ' . $path);
 
         // Simpan informasi gambar ke database
         $image = Event::create([
@@ -68,6 +72,7 @@ class EventController extends Controller
             return redirect()->route('events.index')->with(['error' => 'Data Gagal Disimpan!']);
         }
     }
+
 
     /**
      * Menghapus gambar tertentu dari penyimpanan.
