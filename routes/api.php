@@ -28,3 +28,4 @@ Route::POST('/insert_data', [ConfigController::class, 'insertData']);
 Route::POST('/login', [App\Http\Controllers\api\LoginController::class, 'login']);
 Route::POST('/register', [App\Http\Controllers\api\RegisterController::class, 'register']);
 Route::POST('/send-otp', [Forgot_passwordController::class, 'sendOtp']);
+
