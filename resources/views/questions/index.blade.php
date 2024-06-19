@@ -38,7 +38,7 @@
                             <tr>
                                 <th scope="col" style="text-align: center;width: 6%">NO.</th>
                                 <th scope="col">MAPEL</th>
-                                <th scope="col">DETAIL</th>
+                                <th scope="col">SOAL</th>
                                 <th scope="col">LAMPIRAN</th>
                                 <th scope="col">A</th>
                                 <th scope="col">B</th>

@@ -18,6 +18,7 @@ class SertificateController extends Controller
         // $nama = "Fajar Dwi VVVVV";
         $outputfile = public_path().'dcc.pdf';
         $this->fillPDF(public_path().'/master/dcc.pdf',$outputfile,$nama);
+        // $dd($outputfile);
 
         return response()->file($outputfile);
     }
@@ -30,7 +31,7 @@ class SertificateController extends Controller
         $fpdi->AddPage($size['orientation'],array($size['width'],$size['height']));
         $fpdi->useTemplate($template);
         $top = 105;
-        $right = 100;
+        $right = 110;
         $name = $nama;
         $fpdi->SetFont("helvetica","",20);
         $fpdi->setTextColor(25,26,25);

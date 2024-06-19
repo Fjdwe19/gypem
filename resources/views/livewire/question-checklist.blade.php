@@ -2,7 +2,7 @@
    
   @if(isset($selectedQuestion))
     <div class="form-group">
-      <label>SELECTED QUESTIONS</label>
+      <label>Pilih Soal</label>
       <table id="table_id" class="table table-bordered table-hover">
         <thead>
         <tr>
@@ -33,7 +33,7 @@
   @endif
     <div class="card">
         <div class="card-header">
-            <h3>Add Questions</h3>
+            <h3>Tambah Soal</h3>
         </div>
         <div class="card-body">
           {{-- @foreach ($selectedQuestion as $item)
@@ -49,9 +49,9 @@
           <table id="table_id" class="table table-bordered table-hover">
             <thead>
             <tr>
-              <th>Choose</th>
-              <th>Subject</th>
-              <th>Detail Question</th>
+              <th>Pilih</th>
+              <th>Mapel</th>
+              <th>Detail</th>
             </tr>
             </thead>
             <tbody>

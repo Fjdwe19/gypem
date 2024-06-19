@@ -88,12 +88,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('questions', QuestionController::class)->except([
         'show'
     ]);
-
-    //events
-   Route::resource('events', EventController::class)->except([
-    'show', 'create', 'edit', 'update'
-    ]);;
-
+    
     //exams
      Route::resource('exams', ExamController::class); 
     Route::get('/exams/result/{score}/{user_id}/{exam_id}', [ExamController::class, 'result'])->name('exams.result');

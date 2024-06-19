@@ -15,8 +15,14 @@
     <link rel="stylesheet" href="{{ asset('assets/modules/select2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/select2-bootstrap4.css') }}" />
 
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/styledash.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
 
     <script src="{{ asset('assets/modules/jquery.min.js') }}"></script>
@@ -64,19 +70,19 @@
                         <a href="index.html">GYPEM APP</a>
                     </div>
                     <div class="sidebar-brand sidebar-brand-sm">
-                        <a href="index.html">UJIAN</a>
+                    <img src="{{asset('assets/img/logss.png')}}" style="width:40px; height: 40px;">
                     </div>
                     <ul class="sidebar-menu">
                         <li class="menu-header">MAIN MENU</li>
                         <li class="{{ setActive('/dashboard') }}"><a class="nav-link"
-                                href="{{ route('dashboard.index') }}"><i class="fas fa-tachometer-alt"></i>
+                                href="{{ route('dashboard.index') }}"><i class="fas fa-laptop"></i>
                                 <span>Dashboard</span></a></li>
-                        <!-- Event -->
+                        <!-- Event
                         @can('events.index')
                         <li class="{{ setActive('/event') }}"><a class="nav-link"
                                 href="{{ route('events.index') }}"><i class="fas fa-image"></i>
                                 <span>Event</span></a></li>
-                        @endcan
+                        @endcan -->
 
                         @can('exams.index')
                         <li class="{{ setActive('/exam') }}"><a class="nav-link"
@@ -91,7 +97,7 @@
 
                         @can('questions.index')
                         <li class="{{ setActive('/question') }}"><a class="nav-link"
-                                href="{{ route('questions.index') }}"><i class="fas fa-question"></i> <span>Soal</span></a>
+                                href="{{ route('questions.index') }}"><i class="fas fa-question-circle"></i> <span>Soal</span></a>
                         </li>
                         @endcan
 
@@ -121,7 +127,7 @@
 
                         @can('documents.index')
                         <li class="{{ setActive('/document') }}"><a class="nav-link"
-                                href="{{ route('documents.index') }}"><i class="fas fa-file-word"></i>
+                                href="{{ route('documents.index') }}"><i class="fas fa-file-pdf "></i>
                                 <span>Soal Document</span></a></li>
                         @endcan
 
@@ -156,7 +162,7 @@
 
                                 @can('users.index')
                                     <li class="{{ setActive('/user') }}"><a class="nav-link"
-                                        href="{{ route('users.index') }}"><i class="fas fa-users"></i> Users</a>
+                                        href="{{ route('users.index') }}"><i class="fas fa-user-secret"></i> Users</a>
                                 </li>
                                 @endcan
                                 <li class="{{ setActive('sertificate') }}"><a class="nav-link" href="{{ route('sertificate.index') }}"><i class="fas fa-bell"></i><span>Sertificate</span></a></li>
@@ -172,11 +178,18 @@
     </div>
 
     <!-- General JS Scripts -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="{{ asset('assets/modules/popper.js') }}"></script>
     <script src="{{ asset('assets/modules/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
     <script src="{{ asset('assets/js/stisla.js') }}"></script>
+    <script src="{{ asset('assets/js/maindash.js') }}"></script>
     <script src="{{ asset('assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@1.0.0/dist/select2-bootstrap4.min.css" rel="stylesheet" />
 
     <!-- JS Libraies -->
 
@@ -185,41 +198,45 @@
     <!-- Template JS File -->
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@1.0.0/dist/select2-bootstrap4.min.css" rel="stylesheet" />
+
     <script>
-        //active select2
         $(document).ready(function () {
+            // Initialize Select2
             $('select').select2({
                 theme: 'bootstrap4',
                 width: 'style',
             });
-        });
 
-        //flash message
-        @if(session()->has('success'))
-        swal({
-            type: "success",
-            icon: "success",
-            title: "BERHASIL!",
-            text: "{{ session('success') }}",
-            timer: 1500,
-            showConfirmButton: false,
-            showCancelButton: false,
-            buttons: false,
+            // Flash message
+            @if(session()->has('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: 'BERHASIL!',
+                    text: '{{ session('success') }}',
+                    timer: 1500,
+                    showConfirmButton: false,
+                    showCancelButton: false,
+                    buttons: false,
+                });
+            @endif
+
+            @if(session()->has('error'))
+                Swal.fire({
+                    icon: 'error',
+                    title: 'GAGAL!',
+                    text: '{{ session('error') }}',
+                    timer: 1500,
+                    showConfirmButton: false,
+                    showCancelButton: false,
+                    buttons: false,
+                });
+            @endif
         });
-        @elseif(session()->has('error'))
-        swal({
-            type: "error",
-            icon: "error",
-            title: "GAGAL!",
-            text: "{{ session('error') }}",
-            timer: 1500,
-            showConfirmButton: false,
-            showCancelButton: false,
-            buttons: false,
-        });
-        @endif
     </script>
-
     @livewireScripts
 </body>
 </html>

@@ -45,7 +45,7 @@ class VideoController extends Controller
     {
         $this->validate($request, [
             'title'     => 'required',
-            'video'     => 'required|mimes:mp4,mpeg',
+            'video'     => 'required|mimes:mp4,mpeg,3gp',
             'caption'   => 'required'
         ]);
 

@@ -13,9 +13,7 @@
                 <div class="card-header">
                     <h4><i class="fas fa-exam"></i> {{  $exam->name }} </h4>
                 </div>
-
                 <div class="card-body">
-                   
                     <form action="{{ route('exams.assign', $exam->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
